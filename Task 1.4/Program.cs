@@ -8,14 +8,15 @@ internal class Program
         while (quantityOfBoxes > 0)
         {
             Console.WriteLine("Сколько ящиков готова забрать машина?");
-            int boxes = Convert.ToInt32(Console.ReadLine());
+            int boxes = Convert.ToInt32(Console.ReadLine());5
+
             if (boxes <= quantityOfBoxes)
             {
                 quantityOfBoxes -= boxes;
             }
             else
             {
-                Console.WriteLine($"На складе такого количества нет, отгружем {quantityOfBoxes} коробок");
+                Console.WriteLine($"На складе такого количества нет, отгруажем {quantityOfBoxes} коробок");
                 quantityOfBoxes = 0;
             }
         }
