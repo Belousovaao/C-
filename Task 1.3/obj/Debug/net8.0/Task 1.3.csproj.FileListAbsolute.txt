@@ -1,0 +1,15 @@
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/bin/Debug/net8.0/Task 1.3
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/bin/Debug/net8.0/Task 1.3.deps.json
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/bin/Debug/net8.0/Task 1.3.runtimeconfig.json
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/bin/Debug/net8.0/Task 1.3.dll
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/bin/Debug/net8.0/Task 1.3.pdb
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.GeneratedMSBuildEditorConfig.editorconfig
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.AssemblyInfoInputs.cache
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.AssemblyInfo.cs
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.csproj.CoreCompileInputs.cache
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.sourcelink.json
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.dll
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/refint/Task 1.3.dll
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.pdb
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/Task 1.3.genruntimeconfig.cache
+/Users/Anna/Desktop/C#/Repos-vscode/C-/Task 1.3/obj/Debug/net8.0/ref/Task 1.3.dll
