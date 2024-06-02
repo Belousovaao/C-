@@ -5,9 +5,11 @@ internal class Program
     private static void Main(string[] args)
     {
         int quantityOfBoxes = 50;
+        
         while (quantityOfBoxes > 0)
         {
             Console.WriteLine("Сколько ящиков готова забрать машина?");
+
             int boxes = Convert.ToInt32(Console.ReadLine());
 
             if (boxes <= quantityOfBoxes)

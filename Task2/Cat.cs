@@ -7,6 +7,7 @@ public class Cat(int age) : Animal(age)
         base.Say();
         Console.WriteLine("Мяу");
     }
+    
     public override void Feed(int foodCount) => base.Feed(foodCount);
     public override void Punish(int punchCount) => base.Punish(punchCount);
 }

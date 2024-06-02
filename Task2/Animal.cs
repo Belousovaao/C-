@@ -23,6 +23,7 @@ public abstract class Animal(int age)
             }
         }
     }
+
     public int Age { get; init; } = age;
 
     public string Health // реализация через свойство, т.к. речь идет о данных
@@ -46,6 +47,7 @@ public abstract class Animal(int age)
                 }
         }
     }
+
     public virtual void Say()
     {
         if (Name is null)
@@ -53,6 +55,7 @@ public abstract class Animal(int age)
         else
             Console.WriteLine($"Привет! Меня зовут {Name}, мне {Age} лет");
     }
+    
     public virtual void Feed(int foodCount) => health += foodCount;
     public virtual void Punish(int punchCount) => health -= punchCount;
 }

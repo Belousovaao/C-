@@ -7,6 +7,7 @@ internal class Test
     private static void Main(string[] args)
     {
        Animal[] animals = [new Cat (2), new Dog(3)];
+       
        foreach (var animal in animals)
        {
        if (animal is Cat cat1)
