@@ -4,24 +4,24 @@ namespace Task3;
 
 public class FactoryAF
 {
-    public List<Customer> ListOfCustomers { get; set; }
-    private List<Car> listOfCars;
+    List<Car> listOfCars;
+    List<Customer> listOfCustomers;
 
-
-    public FactoryAF()
+    public FactoryAF(List<Customer> customers)
     {
-        ListOfCustomers = new List<Customer>();
         listOfCars = new List<Car>();
+        listOfCustomers = customers;
     }
 
-    public void CreateCar(Car car)
+    public void CreateCar()
     {
-        listOfCars.Add(car);
+        Car newCar = new Car();
+        listOfCars.Add(newCar);
     }
 
     public void SaleCar()
     {
-        foreach (var customer in ListOfCustomers)
+        foreach (var customer in listOfCustomers)
         {
             if (listOfCars.Count > 0)
             {
@@ -41,6 +41,6 @@ public class FactoryAF
 
     public void Say()
     {
-        Console.WriteLine($"Сейчас на складе МФТИ имеется {listOfCars.Count} автомобилей, а список покупателей состоит из {ListOfCustomers.Count} человек.");
+        Console.WriteLine($"Сейчас на складе МФТИ имеется {listOfCars.Count} автомобилей, а список покупателей состоит из {listOfCustomers.Count} человек.");
     }
 }

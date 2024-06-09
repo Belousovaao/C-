@@ -4,17 +4,19 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        FactoryAF factory = new FactoryAF();
+        Customer customer1 = new Customer("Петров Иван Иванович");
+        Customer customer2 = new Customer("Иванова Мария Михайловна");
+        Customer customer3 = new Customer("Васильев Михаил Игоревич");
 
-        factory.CreateCar(new Car());
-        factory.CreateCar(new Car());
-        factory.CreateCar(new Car());
-        factory.CreateCar(new Car());
-        factory.CreateCar(new Car());
+        List<Customer> customers = [customer1, customer2, customer3];
         
-        factory.ListOfCustomers.Add(new Customer("Петров Иван Иванович"));
-        factory.ListOfCustomers.Add(new Customer("Иванова Мария Михайловна"));
-        factory.ListOfCustomers.Add(new Customer("Васильев Михаил Игоревич"));
+        FactoryAF factory = new FactoryAF(customers);
+
+        factory.CreateCar();
+        factory.CreateCar();
+        factory.CreateCar();
+        factory.CreateCar();
+        factory.CreateCar();
         
         factory.Say();
         factory.SaleCar();
