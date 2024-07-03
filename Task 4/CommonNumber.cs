@@ -6,8 +6,5 @@ public abstract class CommonNumber : IInventory
 
      public int Number { get; set; }
 
-     public CommonNumber()
-     {
-        Number = nextNumber++;
-     }
+    public CommonNumber() => Number = nextNumber++;
 }

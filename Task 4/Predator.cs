@@ -7,8 +7,5 @@ public abstract class Predator : Animal
 {
     public string TypeOfFood { get; set; }
 
-    public Predator (string name, int health, string typeOfFood) : base (name, health)
-    {
-        TypeOfFood = typeOfFood;
-    }
+    public Predator(string name, int health, string typeOfFood) : base(name, health) => TypeOfFood = typeOfFood;
 }

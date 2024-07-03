@@ -8,18 +8,15 @@ public abstract class Animal : CommonNumber, IAlive
     private int _health;
 
     public string Name { get; set; }
-    public int Health 
-    { 
-        get
-        {
-            return _health;
-        }
+    public int Health
+    {
+        get => _health;
         set
         {
             if (value >= -10 && value <= 10)
-            _health = value;
+                _health = value;
             else
-            Console.WriteLine("Некорректное значение, здоровье может оцениваться от -10 до 10 баллов");
+                Console.WriteLine("Некорректное значение, здоровье может оцениваться от -10 до 10 баллов");
         }
     }
 
