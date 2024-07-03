@@ -9,5 +9,6 @@ sealed class Operator : Employee
     public override void OfficialDuties()
     {
         base.OfficialDuties();
+        Console.WriteLine("Оператор почты должен иметь навык работы с компьютером, быстро печатать и быть стрессоустойчивым!");
     }
 }

@@ -2,6 +2,8 @@
 
 sealed class Postman : Employee
 {
+    public new bool IsBusy {get; set; }
+    
     public Postman(string fio) : base(fio)
     {
     }
@@ -9,5 +11,6 @@ sealed class Postman : Employee
     public override void OfficialDuties()
     {
         base.OfficialDuties();
+        Console.WriteLine("Каждый почтальон должен иметь хорошую физическую подготовку и обожать мультфильм \"Простоквашино\"!");
     }
 }

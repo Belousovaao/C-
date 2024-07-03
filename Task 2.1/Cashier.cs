@@ -9,6 +9,7 @@ sealed class Cashier : Employee
     public override void OfficialDuties()
     {
         base.OfficialDuties();
+        Console.WriteLine("Кассир почты должен быть очень внимательным, честным и бескорыстным!");
     }
 }
 
