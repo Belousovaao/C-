@@ -21,6 +21,7 @@ public class Manager
 
     public void Feeding(Animal sender, Animal animal)
     {
+        Console.WriteLine($"Менеджер, покорми животное {animal.Name}");
         animal.Health += 10;
         Console.WriteLine($"Животное {animal.Name} накормлено");
 

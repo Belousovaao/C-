@@ -36,6 +36,7 @@ public abstract class Animal : CommonNumber, IAlive
             Notify?.Invoke(this, animal);
             {
             }
+            
         }
     }
 }
