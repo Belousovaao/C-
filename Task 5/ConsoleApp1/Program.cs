@@ -2,19 +2,37 @@
 using Model.BL;
 using Model.DAL;
 using Model.Domain;
-using Ninject;
-using Ninject.Modules;
 using Presenter;
 using Shared;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.DependencyInjection;
 
 internal class Program
 {
+        private static IServiceCollection ConfigureServices()
+    {
+        var services = new ServiceCollection();
+        services.AddSingleton<Employee>();
+        services.AddSingleton<IRepository<Employee>, EntityRepository<Employee>>();
+        services.AddSingleton<IMainModel, MainModel>();
+        services.AddSingleton<IMainView, MainView>();
+        return services;
+    }
+    
     private static void Main(string[] args)
     {
-        IRepository<Employee> repository = new FakeRepository<Employee>();
-        IMainModel model = new MainModel(repository);
-        IMainView view = new MainView(model);
-        MainPresenter presenter = new MainPresenter(model, view);
-        view.Run();
+        var services = ConfigureServices();
+        var serviceProvider = services.BuildServiceProvider();
+
+        var model = serviceProvider.GetService<IMainModel>();
+        var view = serviceProvider.GetService<IMainView>();
+
+        using (var db = new DataContext())
+        {
+            db.Database.EnsureCreated();
+        }
+
+        var presenter = new MainPresenter(model, view);
     }
 }

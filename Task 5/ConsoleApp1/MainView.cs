@@ -1,8 +1,6 @@
 ﻿using Model.BL;
 using Model.DAL;
 using Model.Domain;
-using Ninject;
-using Ninject.Modules;
 using Presenter;
 using Shared;
 
@@ -18,7 +16,7 @@ public class MainView : IMainView
     
     public event EventHandler<EmployeeEventArgs> EventAddEmployee;
     public event EventHandler<EmployeeEventArgs> EventDelEmployee;
-    public event EventHandler EventLoadView;
+    public event EventHandler EventLoudView;
 
     public void Run()
     {
@@ -26,7 +24,7 @@ public class MainView : IMainView
         
         while (command != "0")
         {
-            Console.Write("Выберите действие: ");
+            Console.Write("Выберите действие:\n");
             Console.WriteLine("1. Добавить сотрудника");
             Console.WriteLine("2. Удалить сотрудника");
             Console.WriteLine("3. Показать всех сотрудников");
@@ -45,7 +43,7 @@ public class MainView : IMainView
                 break;
 
                 case "3":
-                LoadEmployees();
+                LoudEmployees();
                 break;
             }
         }
@@ -97,8 +95,8 @@ public class MainView : IMainView
                 Console.WriteLine("Сотрудник с указанным именем не найден.");
             }
         }
-        private void LoadEmployees()
+        private void LoudEmployees()
         {
-            EventLoadView?.Invoke(this, EventArgs.Empty);
+            EventLoudView?.Invoke(this, EventArgs.Empty);
         }
 }

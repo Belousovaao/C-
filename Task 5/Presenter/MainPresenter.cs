@@ -1,5 +1,7 @@
 ﻿using Model.BL;
 using Shared;
+using Model.DAL;
+using Model.Domain;
 
 namespace Presenter
 {
@@ -18,7 +20,7 @@ namespace Presenter
             _model.EventAddEmployee += _model_EventAddEmployee;
 
 
-            _view.EventLoadView += _view_EventLoadView;
+            _view.EventLoudView += _view_EventLoudView;
             _view.EventDelEmployee += _view_EventDelEmployee;
             _view.EventAddEmployee += _view_EventAddEmployee;
 
@@ -35,7 +37,7 @@ namespace Presenter
             _model.DeleteEmployee(e.Employee);
         }
 
-        private void _view_EventLoadView(object? sender, EventArgs e)
+        private void _view_EventLoudView(object? sender, EventArgs e)
         {
             _view.Loud(_model.GetEmployees());
         }
