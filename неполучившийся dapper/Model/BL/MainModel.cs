@@ -10,11 +10,11 @@ namespace Model.BL
 {
     public class MainModel : IMainModel
     {
-        // private readonly DapperRepository _dapperRepository;
-        public MainModel(IRepository<Employee> repository) //DapperRepository dapperRepository)
+        private readonly DapperRepository _dapperRepository;
+        public MainModel(IRepository<Employee> repository, DapperRepository dapperRepository)
         {
             _repository = repository;
-            //_dapperRepository = dapperRepository;
+            _dapperRepository = dapperRepository;
         }
 
         public event EventHandler<EmployeeEventArgs> EventAddEmployee; //= delegate { };
