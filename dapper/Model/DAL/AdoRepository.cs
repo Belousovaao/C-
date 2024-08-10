@@ -29,5 +29,16 @@ public abstract class AdoRepository<T> : IRepository<T>
             _deleted.Remove(entity);
         else if (!_added.Contains(entity))
             _added.Add(entity);
-    }       
+    } 
+
+    protected IEnumerable<int> DeletedIds
+    {
+        get {   return Deleted.Select(o => o.Id).Distinct(); }
+    } 
+
+    public void Discard()
+    {
+        Added.Clear();
+        Deleted.Clear();
+    }     
 }

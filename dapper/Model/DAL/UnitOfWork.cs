@@ -13,9 +13,9 @@ public class UnitOfWork : IUnitOfWork
 
     public UnitOfWork()
     {
-        _connectionString = new DataBaseConnection("/Users/Anna/Desktop/C\#/Repos-vscode/C-/dapper/ConsoleApp1/Emps.db;");
+        _connectionString = new DataBaseConnection("Data Source=/Users/Anna/Desktop/C#/Repos-vscode/C-/dapper/ConsoleApp1/Emps.db;");
         _emps = new DapperRepository(_connectionString);
-
+    }
 
     public IRepository<Employee> Emps
     {
@@ -26,18 +26,7 @@ public class UnitOfWork : IUnitOfWork
     {
         try
         {
-            using (var conn = _connectionString.GetConnection())
-            {
-                conn.Open();
-                string cmdText = _emps.GetUpdateScript();
-                Console.WriteLine("Generated SQL Command: " + cmdText);
-                using (var command = new SqliteCommand(cmdText, conn)) // Замените SqliteCommand на SqlCommand, если используете SQL Server
-                {
-                    int rowsAffected = command.ExecuteNonQuery();
-                    Console.WriteLine($"Rows affected: {rowsAffected}"); // Логируем количество затронутых строк
-                }
-            }
-            Discard();
+            _emps.ExecuteUpdates();
             return true;
         }
         catch (Exception ex)

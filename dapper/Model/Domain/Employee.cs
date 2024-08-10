@@ -8,21 +8,12 @@ namespace Model.Domain
 {
     public interface IDomainObject
     {
-        int Id { get; set; }
+        int Id { get; }
     }
 
-    public abstract class NewId : IDomainObject
+    public class Employee : IDomainObject
     {
-        private static int nextNumber = 1;
-
-        public int Id { get; set; }
-
-        public NewId() => Id = nextNumber++;
-    }
-
-    public class Employee : NewId
-    {
-        public int Id { get; set; }
+        public int Id { get; }
         public string? Name { get; set; }
         public int Age { get; set; }
         public override string ToString()

@@ -10,11 +10,10 @@ namespace Model.BL
 {
     public class MainModel : IMainModel
     {
-        // private readonly DapperRepository _dapperRepository;
-        public MainModel(IRepository<Employee> repository) //DapperRepository dapperRepository)
+        private readonly UnitOfWork _unitOfWork;
+        public MainModel()
         {
-            _repository = repository;
-            //_dapperRepository = dapperRepository;
+            _unitOfWork = new UnitOfWork();
         }
 
         public event EventHandler<EmployeeEventArgs> EventAddEmployee; //= delegate { };
@@ -22,21 +21,28 @@ namespace Model.BL
 
         public void AddEmployee(Employee employee)
         {
-            _repository.Add(employee);
-            EventAddEmployee?.Invoke(this, new EmployeeEventArgs(employee));
+            _unitOfWork.Emps.Add(employee);
+            bool result = _unitOfWork.SaveChanges();
+            if (result)
+            {
+                EventAddEmployee?.Invoke(this, new EmployeeEventArgs(employee));
+            }
         }
 
         public void DeleteEmployee(Employee employee)
         {
-            _repository.Delete(employee);
-            EventDelEmployee?.Invoke(this, new EmployeeEventArgs(employee));
+            _unitOfWork.Emps.Delete(employee);
+            bool result = _unitOfWork.SaveChanges();
+            if (result)
+            {
+                EventDelEmployee?.Invoke(this, new EmployeeEventArgs(employee));
+            }
         }
 
         public IList<Employee> GetEmployees()
         {
-            return _repository.GetAll().ToList();
+            return _unitOfWork.Emps.GetAll().ToList();
         }
 
-        public IRepository<Employee> _repository { get; set; }
     }
 }
