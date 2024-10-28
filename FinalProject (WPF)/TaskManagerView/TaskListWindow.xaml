@@ -1,0 +1,398 @@
+﻿<Window x:Class="TaskManagerView.TaskListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskManagerView"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        mc:Ignorable="d"
+        Title="TaskListWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:TabVisibilityConverter x:Key="TabVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" >
+            <!-- Tab for Important and Urgent tasks -->
+            <TabItem Header="Important and Urgent">
+                <StackPanel Background="#9F8551">
+                    <UniformGrid Columns="4">
+                        <Button Content="Редактировать" Command="{Binding EditCommand}"/>
+                        <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                        <Button Content="Новая задача" Command="{Binding CreateTaskCommand}"/>
+                        <Button Content="Удалить" Command="{Binding DeleteTaskCommand}"
+                                IsEnabled="{Binding IsDeleteEnabled}"/>
+                    </UniformGrid>
+                    <ListView ItemsSource="{Binding ImportantUrgentTasks}"
+                              SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                         IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                         MinWidth="200" MinHeight="30"
+                                         PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Description" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="300" MinHeight="30"
+                                         PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Status" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding DataContext.AvailableStatuses, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                      SelectedItem="{Binding Path=Status, Mode=TwoWay, diag:PresentationTraceSources.TraceLevel=High}"
+                                                      IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                      BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                      MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Executor" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Executor, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Registration Data" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=RegistrationData, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Plan Labour Intensity" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=PlanLabourIntensity, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Finish Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FinishTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Fact Lead Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FactLeadTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Tab for Not Important and Urgent tasks -->
+            <TabItem Header="Not Important and Urgent">
+                <StackPanel Background="#2D3644">
+                    <UniformGrid Columns="4">
+                        <Button Content="Редактировать" Command="{Binding EditCommand}"/>
+                        <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                        <Button Content="Новая задача" Command="{Binding CreateTaskCommand}"/>
+                        <Button Content="Удалить" Command="{Binding DeleteTaskCommand}"
+                    IsEnabled="{Binding IsDeleteEnabled}"/>
+                    </UniformGrid>
+                    <ListView ItemsSource="{Binding NotImportantUrgentTasks}"
+                  SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                         IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                         MinWidth="200" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Description" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="300" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Status" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding DataContext.AvailableStatuses, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                      SelectedItem="{Binding Path=Status, Mode=TwoWay, diag:PresentationTraceSources.TraceLevel=High}"
+                                                      IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                      BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                      MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Executor" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Executor, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Registration Data" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=RegistrationData, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Plan Labour Intensity" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=PlanLabourIntensity, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Finish Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FinishTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Fact Lead Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FactLeadTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                         BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                         MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Tab for Important and Not Urgent tasks -->
+            <TabItem Header="Important and Not Urgent">
+                <StackPanel Background="#E0E2E0">
+                    <UniformGrid Columns="4">
+                        <Button Content="Редактировать" Command="{Binding EditCommand}"/>
+                        <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                        <Button Content="Новая задача" Command="{Binding CreateTaskCommand}"/>
+                        <Button Content="Удалить" Command="{Binding DeleteTaskCommand}"
+                                IsEnabled="{Binding IsDeleteEnabled}"/>
+                    </UniformGrid>
+                    <ListView ItemsSource="{Binding ImportantNotUrgentTasks}"
+                              SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                                     IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                                     MinWidth="200" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Description" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="300" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Status" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding DataContext.AvailableStatuses, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                      SelectedItem="{Binding Path=Status, Mode=TwoWay, diag:PresentationTraceSources.TraceLevel=High}"
+                                                      IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                      BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                      MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Executor" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Executor, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Registration Data" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=RegistrationData, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Plan Labour Intensity" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=PlanLabourIntensity, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Finish Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FinishTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Fact Lead Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FactLeadTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Tab for Not Important and Not Urgent tasks -->
+            <TabItem Header="Not Important and Not Urgent">
+                <StackPanel Background="#96A4A5">
+                    <UniformGrid Columns="4">
+                        <Button Content="Редактировать" Command="{Binding EditCommand}"/>
+                        <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                        <Button Content="Новая задача" Command="{Binding CreateTaskCommand}"/>
+                        <Button Content="Удалить" Command="{Binding DeleteTaskCommand}"
+                                IsEnabled="{Binding IsDeleteEnabled}"/>
+                    </UniformGrid>
+                    <ListView ItemsSource="{Binding NotImportantNotUrgentTasks}"
+                              SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
+                                                     IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                                     MinWidth="200" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Description" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="300" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Status" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding DataContext.AvailableStatuses, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                       SelectedItem="{Binding Path=Status, Mode=TwoWay, diag:PresentationTraceSources.TraceLevel=High}"
+                                                       IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                       BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                       MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Executor" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Executor, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Registration Data" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=RegistrationData, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Plan Labour Intensity" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=PlanLabourIntensity, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Finish Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FinishTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Fact Lead Time" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=FactLeadTime, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     MinWidth="100" MinHeight="30" PreviewMouseLeftButtonDown="TextBox_PreviewMouseLeftButtonDown"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
